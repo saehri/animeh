@@ -10,7 +10,7 @@ animeRouter.get('/', async (req: Request, res: Response) => {
   try {
     const animes = await AnimeService.listAnimes();
     return res.status(200).json(animes);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json(error.message);
   }
 });
