@@ -5,6 +5,7 @@ type Author = {
   name: string;
   email: string;
   password: string;
+  hashedPassword: string;
   posts?: [];
   comments?: [];
 };
@@ -18,6 +19,7 @@ export const listAuthor = async () => {
       name: true,
       email: true,
       posts: true,
+      isAdmin: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -27,6 +29,10 @@ export const listAuthor = async () => {
 export const getAuthorById = async (id: number) => {
   return db.author.findUnique({
     where: {id},
+    include: {
+      posts: true,
+      comments: true,
+    },
   });
 };
 
@@ -43,6 +49,7 @@ export const createAuthor = async (data: Author) => {
       name: data.name,
       email: data.email,
       password: data.password,
+      hashedPassword: data.hashedPassword,
     },
   });
 };
@@ -61,6 +68,7 @@ export const updateAuthor = async (id: number, data: any) => {
       email: true,
       posts: true,
       createdAt: true,
+      isAdmin: true,
       updatedAt: true,
     },
   });
