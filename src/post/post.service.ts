@@ -39,7 +39,7 @@ export const getPostById = async (id: number) => {
   });
 };
 
-export const getPostsByQuery = async (queryParams: any, max: number) => {
+export const getPostsByQuery = async (queryParams: any, max?: number) => {
   if (max) {
     return db.post.findMany({
       take: max,

@@ -31,9 +31,32 @@ postsRouter.get(
   async (req: Request, res: Response) => {
     try {
       const querys = req.query;
-      const maxPost = req.query.max ?? 0;
+      const responseData = await postsService.getPostsByQuery(querys);
+
+      res.status(200).json({
+        success: true,
+        responseDataLength: responseData.length,
+        data: responseData,
+        serverRespondeAt: new Date().toISOString(),
+        isEmpty: responseData.length === 0,
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        message: 'Failed to fetch data from server. Please try again later',
+        success: false,
+      });
+    }
+  }
+);
+
+postsRouter.get(
+  '/max/:maxResponse',
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const maxPost = req.params.maxResponse;
       const responseData = await postsService.getPostsByQuery(
-        querys,
+        {},
         Number(maxPost)
       );
 
