@@ -4,11 +4,13 @@
 
 <h2>✋ Introduction</h2>
 <p>
-Start with a brief overview of what your API offers.
-The ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).</p>
+Animeh provides many API products, tools, and resources that enable you to review anime.</p>
 <p>
 You can also list the APIs you offer, link to the relevant pages, or do both in this section.
 </p>
+
+<h2>🏗 How we build Animeh</h2>
+<a target="_blank" href="https://drive.google.com/drive/folders/1uR90HHNmOJSJLRoo1DirfDdIeJM1Ddae?usp=drive_link">Click here to read more about our process in building this API.</a>
 
 <h3>
 Getting started guide
