@@ -1,28 +1,31 @@
-<h1>✨ Welcome to Animeh ✨</h1>
+<h1 align="center">✨ Welcome to Animeh ✨</h1>
 
 ![Cover](https://utfs.io/f/136c9cb5-d84a-4043-a0d0-15cfb4f35ecc-qmtq0.webp)
 
-<h2>Introduction</h2>
-📄 Get started here
-This template contains a boilerplate for documentation that you can quickly customize and reuse.
-
-🔖 How to use this template
-Replace the content given brackets (()) with your API's details.
-Tips are formatted in codespan - feel free to read and remove them.
-
+<h2>✋ Introduction</h2>
+<p>
 Start with a brief overview of what your API offers.
-The ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).
+The ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).</p>
+<p>
 You can also list the APIs you offer, link to the relevant pages, or do both in this section.
+</p>
+
+<h3>
 Getting started guide
-List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.
+</h3>
+<p>List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.
 To start using the ((add APIs here)), you need to -
-The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.
+The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.</p>
+
+<p>
 You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's integrations dashboard.
 The API has rate and usage limits.
-The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.
-The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.
+The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.</p>
 
-Authentication
+<p>
+The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.</p>
+
+<h2>🔒 Authentication</h2>
 Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.
 The ((product name)) API uses ((add your API's authorization type)) for authentication.
 The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.
