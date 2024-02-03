@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import {postsRouter} from './post/post.router';
 import {authorRouter} from './author/author.router';
+import {reviewRouter} from './review/review.route';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use('/api/author', authorRouter);
 app.use('/api/animes', postsRouter);
+app.use('/api/review', reviewRouter);
 
 app.listen(PORT, () => {
   console.log('server running on PORT:', PORT);

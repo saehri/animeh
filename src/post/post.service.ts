@@ -17,7 +17,8 @@ export const listPosts = async () => {
       title: true,
       synopsis: true,
       genres: true,
-      comments: true,
+      reviews: true,
+      coverImage: true,
       author: true,
       authorId: true,
       createdAt: true,
@@ -33,7 +34,7 @@ export const getPostById = async (id: number) => {
     },
     include: {
       author: true,
-      comments: true,
+      reviews: true,
     },
   });
 };
@@ -47,7 +48,7 @@ export const getPostsByQuery = async (queryParams: any, max: number) => {
       },
       include: {
         author: true,
-        comments: true,
+        reviews: true,
       },
     });
   }
@@ -58,7 +59,7 @@ export const getPostsByQuery = async (queryParams: any, max: number) => {
     },
     include: {
       author: true,
-      comments: true,
+      reviews: true,
     },
   });
 };
@@ -93,7 +94,7 @@ export const updatePost = async (id: number, data: any) => {
     },
     select: {
       id: true,
-      comments: true,
+      reviews: true,
       title: true,
       synopsis: true,
       coverImage: true,

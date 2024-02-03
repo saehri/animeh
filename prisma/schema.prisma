@@ -29,7 +29,7 @@ model Post {
   synopsis   String?
   coverImage String   @default("")
   genres     String   @default("")
-  comments   Review[]
+  reviews    Review[]
   author     Author?  @relation(fields: [authorId], references: [id])
   authorId   Int?
   createdAt  DateTime @default(now())
