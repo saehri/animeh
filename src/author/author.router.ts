@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {query} from 'express';
 import type {Request, Response} from 'express';
 import authMiddleware from '../middleware/authMiddleware';
 
@@ -63,6 +63,12 @@ authorRouter.put(
       const authorId = req.params.id;
       const payload = req.body;
 
+      if (!Object.keys(payload).length) {
+        throw new Error(
+          'Request body cannot be empty! Please provide a valid request body.'
+        );
+      }
+
       const responseData = await authorService.updateAuthor(
         Number(authorId),
         payload
@@ -97,7 +103,8 @@ authorRouter.delete(
         .json({message: 'Author is successfully deleted.', success: true});
     } catch (error: any) {
       return res.status(500).json({
-        message: error.message,
+        message:
+          'There are no record with the specified id. Please provide valid user id.',
         success: false,
       });
     }
@@ -108,6 +115,9 @@ authorRouter.delete(
 authorRouter.post('/signup', async (req: Request, res: Response) => {
   try {
     const payload = req.body;
+    if (Object.keys(payload).length < 2) {
+      throw new Error('Author name, email, or password cannot be undefined.');
+    }
 
     // Only proceed to the next step if the email is not used
     const isAuthorExisit = await authorService.getAuthorByQuery({
@@ -149,7 +159,7 @@ authorRouter.post('/signin', async (req: Request, res: Response) => {
 
     // Data validation
     if (!email || !password) {
-      return res.status(400).json('Email or password cannot be empty!');
+      throw new Error('Email or password cannot be empty!');
     }
 
     const isAuthorExisit = await authorService.getAuthorByQuery({

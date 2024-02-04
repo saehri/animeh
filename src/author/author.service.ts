@@ -7,7 +7,7 @@ type Author = {
   password: string;
   hashedPassword: string;
   posts?: [];
-  comments?: [];
+  reviews?: [];
 };
 
 /* GET */
@@ -15,7 +15,7 @@ export const listAuthor = async () => {
   return db.author.findMany({
     select: {
       id: true,
-      comments: true,
+      reviews: true,
       name: true,
       email: true,
       posts: true,
@@ -31,7 +31,7 @@ export const getAuthorById = async (id: number) => {
     where: {id},
     include: {
       posts: true,
-      comments: true,
+      reviews: true,
     },
   });
 };
@@ -63,7 +63,7 @@ export const updateAuthor = async (id: number, data: any) => {
     },
     select: {
       id: true,
-      comments: true,
+      reviews: true,
       name: true,
       email: true,
       posts: true,
