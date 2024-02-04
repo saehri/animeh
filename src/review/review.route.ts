@@ -55,12 +55,12 @@ reviewRouter.post('/', authMiddleware, async (req: Request, res: Response) => {
 
     // Check if the user already reviewd this post
     const reviewByUser = await reviewService.getReviewsByUser(
-      Number(payload.reviewId),
+      Number(payload.authorId),
       Number(payload.postId)
     );
 
     if (reviewByUser.length) {
-      throw new Error('You already reviewd this anime.');
+      throw new Error('You already reviewed this anime.');
     } else {
       const isPostExist = await getPostById(Number(payload.postId));
 

@@ -543,6 +543,8 @@ Feel free to reach out if you encounter any issues or have questions.
   }
   ```
 
+- Authorization:
+  - This endpoint can be accessed only if author `{isAdmin: true}`
 - Expected response:
   ```
   {
@@ -597,15 +599,240 @@ Feel free to reach out if you encounter any issues or have questions.
 
 #### E. Delete Anime Data
 
-- Endpoint: `/api/animes/:animeId`
-- Parameters: `Anime Id`
+- Endpoint: `/api/animes/authorId:/:animesId`
 - Request methods: **DELETE**
+- Parameters: `authodId = AuthorId & animesId = AnimesId`
+- Authorization:
+  - This endpoint can be accessed only if author `{isAdmin: true}`
 - Expected response:
   ```
   {
-    "message": "Post is successfully deleted.",
-    "success": true
-   }
+    "success": true,
+    "message": "Post successfully deleted!",
+    "serverRespondeAt": "2024-02-04T06:43:06.844Z"
+  }
+  ```
+- Error handling
+  - Error: Invalid user id.
+    - Cause: There are no record with the specified id. Please provide valid user id.
+    - Solution: Provide a valid user id.
+
+---
+
+#### F. Search Animes
+
+- Endpoint: `/api/animes/search?query=value`
+- Request methods: **DELETE**
+- Parameters:
+
+  ```
+  Query: can be any title, or synopsis.
+  Value is string where empty space is replace with plus (+) sign.
+
+  Example:
+  /api/animes/search?title=Spirited+Away
+  ```
+
+- Expected response:
+  ```
+  {
+    "success": true,
+    "responseDataLength": 1,
+    "data": [
+        {
+            "id": 8,
+            "title": "Spirited Away",
+            "synopsis": "Ten-year-old Chihiro and her parents end up at an abandoned amusement park inhabited by supernatural beings. Soon, she learns that she must work to free her parents who have been turned into pigs.",
+            "coverImage": "",
+            "genres": "",
+            "authorId": 7,
+            "createdAt": "2024-02-04T06:48:29.495Z",
+            "updatedAt": "2024-02-04T06:48:29.495Z",
+            "author": {
+                "id": 7,
+                "name": "bahree",
+                "email": "saepulbahree36@gmail.com",
+                "password": "",
+                "hashedPassword": "$2b$08$Bsljhab.PrKfOS.lTADCped4sqLlSClNJOHxufnb5fmQj1rootL.y",
+                "isAdmin": true,
+                "createdAt": "2024-02-03T04:02:35.625Z",
+                "updatedAt": "2024-02-03T06:16:58.800Z"
+            },
+            "reviews": []
+        }
+    ],
+    "serverRespondeAt": "2024-02-04T06:49:17.666Z",
+    "isEmpty": false
+  }
+  ```
+
+---
+
+<br>
+
+### Review Endpoint
+
+---
+
+#### A. Get List of Reviews
+
+- Endpoint: `/api/review`
+- Request methods: **GET**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Expected response:
+  ```
+  {
+    "success": true,
+    "responseDataLength": 1,
+    "data": [
+        {
+            "id": 3,
+            "content": "Amazing animation and music ♥.",
+            "likertScale": 5,
+            "postId": 8,
+            "author": {
+                "id": 7,
+                "name": "bahree",
+                "email": "saepulbahree36@gmail.com",
+                "password": "",
+                "hashedPassword": "$2b$08$Bsljhab.PrKfOS.lTADCped4sqLlSClNJOHxufnb5fmQj1rootL.y",
+                "isAdmin": true,
+                "createdAt": "2024-02-03T04:02:35.625Z",
+                "updatedAt": "2024-02-03T06:16:58.800Z"
+            },
+            "authorId": 7,
+            "createdAt": "2024-02-04T06:59:28.138Z",
+            "updatedAt": "2024-02-04T06:59:28.138Z"
+        }
+    ],
+    "serverRespondeAt": "2024-02-04T07:00:20.747Z",
+    "isEmpty": false
+  }
+  ```
+
+---
+
+#### B. Create Review
+
+- Endpoint: `/api/review`
+- Request methods: **POST**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Request body:
+
+  ```
+  {
+    "likertScale": 4,
+    "content": "Amazing animation and music ♥.",
+    "postId": 3,
+    "authorId": 7
+  }
+
+
+  NOTE:
+  - likertScale is integer from 1 to 5 inclusive.
+  ```
+
+- Expected response:
+  ```
+  {
+    "success": true,
+    "message": "Review is successfully created!",
+    "data": {
+        "id": 3,
+        "likertScale": 5,
+        "content": "Amazing animation and music ♥.",
+        "postId": 8,
+        "authorId": 7,
+        "createdAt": "2024-02-04T06:59:28.138Z",
+        "updatedAt": "2024-02-04T06:59:28.138Z"
+    }
+  }
+  ```
+
+---
+
+#### C. Edit Review
+
+- Endpoint: `/api/reviews/:reviewsId`
+- Parameters: `reviewsId = Review Id`
+- Request methods: **PUT**
+- Request body:
+
+  ```
+  {
+   [reviewDataKey]: [new data]
+  }
+
+   Example:
+
+   {
+    "likertScale": 2,
+    "content": "Worst thing ever."
+  }
+  ```
+
+- Expected response:
+  ```
+  {
+    "success": true,
+    "data": {
+        "id": 3,
+        "likertScale": 2,
+        "content": "Worst thing ever.",
+        "post": {
+            "id": 8,
+            "title": "Spirited Away",
+            "synopsis": "Ten-year-old Chihiro and her parents end up at an abandoned amusement park inhabited by supernatural beings. Soon, she learns that she must work to free her parents who have been turned into pigs.",
+            "coverImage": "",
+            "genres": "",
+            "authorId": 7,
+            "createdAt": "2024-02-04T06:48:29.495Z",
+            "updatedAt": "2024-02-04T06:48:29.495Z"
+        },
+        "postId": 8,
+        "authorId": 7,
+        "author": {
+            "id": 7,
+            "name": "bahree",
+            "email": "saepulbahree36@gmail.com",
+            "password": "",
+            "hashedPassword": "$2b$08$Bsljhab.PrKfOS.lTADCped4sqLlSClNJOHxufnb5fmQj1rootL.y",
+            "isAdmin": true,
+            "createdAt": "2024-02-03T04:02:35.625Z",
+            "updatedAt": "2024-02-03T06:16:58.800Z"
+        },
+        "createdAt": "2024-02-04T06:59:28.138Z",
+        "updatedAt": "2024-02-04T07:05:11.395Z"
+    },
+    "message": "Review successfully edited",
+    "serverRespondeAt": "2024-02-04T07:05:11.406Z"
+  }
+  ```
+- Error handling
+  - Error: Request body cannot be empty.
+    - Cause: Incomplete request body.
+    - Solution: Make sure the request body is complete.
+  - Error: Unauthorized, admin only.
+    - Cause: Invalid authorId or author is not registered as an admin.
+    - Solution: Make sure the authorId is valid and the author is registered as an admin.
+  - Error: There are no record of post with the specified id.
+    - Cause: animesId is not valid.
+    - Solution: Make sure the animeId is valid.
+
+---
+
+#### D. Delete Review
+
+- Endpoint: `/api/review/:reviewId`
+- Request methods: **DELETE**
+- Parameters: `reviewId = Review Id`
+- Expected response:
+  ```
+  {
+    "success": true,
+    "message": "Post successfully deleted!",
+    "serverRespondeAt": "2024-02-04T06:43:06.844Z"
+  }
   ```
 - Error handling
   - Error: Invalid user id.

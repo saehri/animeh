@@ -182,21 +182,30 @@ postsRouter.put(
 );
 
 postsRouter.delete(
-  '/:id',
+  '/:authorId/:animesId',
   authMiddleware,
   async (req: Request, res: Response) => {
-    const postId = req.params.id;
+    const authorId = req.params.authorId;
+    const postId = req.params.animesId;
 
-    try {
-      await postsService.deletePost(Number(postId));
-      return res
-        .status(200)
-        .json({message: 'Post is successfully deleted.', success: true});
-    } catch (error: any) {
-      return res.status(500).json({
-        message: error.message,
-        success: false,
-      });
+    const isAuthorExist = await getAuthorById(Number(authorId));
+
+    if (!isAuthorExist || !isAuthorExist.isAdmin) {
+      throw new Error('Unauthorized, admin only.');
+    } else {
+      const isPostExist = await getAuthorPost(Number(authorId), Number(postId));
+
+      if (!isPostExist?.posts.length) {
+        throw new Error('There are no record of post with the specified id.');
+      } else {
+        const responseData = await postsService.deletePost(Number(postId));
+
+        return res.status(200).json({
+          success: true,
+          message: 'Post successfully deleted!',
+          serverRespondeAt: new Date().toISOString(),
+        });
+      }
     }
   }
 );
