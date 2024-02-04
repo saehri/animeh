@@ -55,29 +55,33 @@ authorRouter.get(
 );
 
 /* PUT: EDIT AUTHOR DATA */
-postsRouter.put('/:id', authMiddleware, async (req: Request, res: Response) => {
-  try {
-    const authorId = req.params.id;
-    const payload = req.body;
+authorRouter.put(
+  '/:id',
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const authorId = req.params.id;
+      const payload = req.body;
 
-    const responseData = await authorService.updateAuthor(
-      Number(authorId),
-      payload
-    );
+      const responseData = await authorService.updateAuthor(
+        Number(authorId),
+        payload
+      );
 
-    return res.status(200).json({
-      success: true,
-      data: responseData,
-      message: 'Author successfully edited',
-      serverRespondeAt: new Date().toISOString(),
-    });
-  } catch (error: any) {
-    return res.status(500).json({
-      message: error.message,
-      success: false,
-    });
+      return res.status(200).json({
+        success: true,
+        data: responseData,
+        message: 'Author successfully edited',
+        serverRespondeAt: new Date().toISOString(),
+      });
+    } catch (error: any) {
+      return res.status(500).json({
+        message: error.message,
+        success: false,
+      });
+    }
   }
-});
+);
 
 /* DELETE: DELETE AUTHOR BY ID */
 authorRouter.delete(

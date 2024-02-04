@@ -4,58 +4,121 @@
 
 <h2>✋ Introduction</h2>
 <p>
-Animeh provides many API products, tools, and resources that enable you to review anime.</p>
-<p>
-You can also list the APIs you offer, link to the relevant pages, or do both in this section.
-</p>
+Welcome to the Animeh, a platform that allows users to submit and retrieve reviews for their favorite anime series. This API is designed to provide a seamless experience for authors who want to share their thoughts on specific anime titles.</p>
 
-<h2>🏗 How we build Animeh</h2>
+<h4>1.1 How we build Animeh</h4>
 <a target="_blank" href="https://drive.google.com/drive/folders/1uR90HHNmOJSJLRoo1DirfDdIeJM1Ddae?usp=drive_link">Click here to read more about our process in building this API.</a>
 
-<h3>
-Getting started guide
-</h3>
-<p>List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.
-To start using the ((add APIs here)), you need to -
-The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.</p>
+<h4>1.2 Key Features</h4>
+<ul>
+<li><strong>Submit Reviews:</strong> Authors can submit their reviews for a particular anime, including a rating and optional comments.</li>
+<li><strong>Retrieve Reviews:</strong> Users can retrieve reviews for a specific anime, gaining insights from the community's opinions.</li>
+</ul>
 
-<p>
-You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's integrations dashboard.
-The API has rate and usage limits.
-The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.</p>
+<h2>Getting started guide</h2>
 
-<p>
-The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.</p>
+1. **Download the Codes**
 
-<h2>🔒 Authentication</h2>
-Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.
-The ((product name)) API uses ((add your API's authorization type)) for authentication.
-The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.
-Postman uses API keys for authentication. You can generate a Postman API key in the API keys section of your Postman account settings.
-You must include an API key in each request to the Postman API with the X-Api-Key request header.
-Authentication error response
-If an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.
-Rate and usage limits
-Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.
-The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.
-API access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.
-Each API response returns the following set of headers to help you identify your use status:
-HeaderDescriptionX-RateLimit-Limit
+   - Clone the repository to your local machine using the following command:
+     ```
+     git clone [https://github.com/saehri/animeh]
+     ```
 
-The maximum number of requests that the consumer is permitted to make per minute.
+2. **Open the Codes on Your Favorite Code Editor**
+   - Navigate to the project folder in your terminal or file explorer.
+   - Open the codebase using your preferred code editor.
+3. **Run npm install**
+   - Install the project dependencies by running the following command:
+     ```
+     npm install
+     ```
+4. **Run npm run dev**
+   - Start the development server with the following command:
+     ```
+     npm run dev
+     ```
+5. **Open Postman to play around with the API**
+   - Launch Postman or your preferred API testing tool.
+   - Use the provided API documentation to interact with the API endpoints.
 
-X-RateLimit-Remaining
+**Note:** Ensure you have Node.js and npm installed on your machine before running the commands. If not, you can download them from [Node.js website](https://nodejs.org/).
 
-The number of requests remaining in the current rate limit window.
+Feel free to reach out if you encounter any issues or have questions.
 
-X-RateLimit-Reset
+<h2>API Documentation</h2>
+<h4>API Design</h4>
 
-The time at which the current rate limit window resets in UTC epoch seconds.
+<h5>Authentication and Authorization</h5>
+<p>Some of the URL Endpoint on this API are protected. Here are the list of the protected Endpoint and what it needs to unlock them:</p>
 
-503 response
-An HTTP 503 response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP 5XX error, contact support.
-Need some help?
-Add links that customers can refer to whenever they need help.
-In case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).
-Or you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.
-You can also document or add links to libraries, code examples, and other resources needed to make a request.
+<h5>1.1 Author</h5>
+---<br>
+
+**Get list of authors**
+
+- Endpoint: `/api/author`
+- Request methods: **GET**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Expected response:
+  ```
+  {
+   "success": true,
+   "responseDataLength": 1,
+   "data": [
+       {
+           "id": 7,
+           "reviews": [
+               {
+                   "id": 1,
+                   "likertScale": 4,
+                   "content": "I love the cheeky story. Nice series ♥.",
+                   "postId": 3,
+                   "authorId": 7,
+                   "createdAt": "2024-02-03T10:59:04.757Z",
+                   "updatedAt": "2024-02-03T12:00:29.003Z"
+               }
+           ],
+           "name": "bahree",
+           "email": "saepulbahree36@gmail.com",
+           "posts": [
+               {
+                   "id": 3,
+                   "title": "Jujutsu Kaisen",
+                   "synopsis": "Lorem ipsum dolor sit amet",
+                   "coverImage": "",
+                   "genres": "",
+                   "authorId": 7,
+                   "createdAt": "2024-02-03T10:05:02.580Z",
+                   "updatedAt": "2024-02-03T10:19:45.408Z"
+               },
+               {
+                   "id": 4,
+                   "title": "Second post",
+                   "synopsis": null,
+                   "coverImage": "",
+                   "genres": "",
+                   "authorId": 7,
+                   "createdAt": "2024-02-03T10:05:16.669Z",
+                   "updatedAt": "2024-02-03T10:05:16.669Z"
+               },
+               {
+                   "id": 5,
+                   "title": "Doraemon",
+                   "synopsis": null,
+                   "coverImage": "",
+                   "genres": "",
+                   "authorId": 7,
+                   "createdAt": "2024-02-03T15:37:12.172Z",
+                   "updatedAt": "2024-02-03T15:37:12.172Z"
+               }
+           ],
+           "isAdmin": true,
+           "createdAt": "2024-02-03T04:02:35.625Z",
+           "updatedAt": "2024-02-03T06:16:58.800Z"
+       }
+   ],
+   "serverRespondeAt": "2024-02-04T00:50:02.436Z",
+   "isEmpty": false
+   }
+  ```
+  <br>---<br>
