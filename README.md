@@ -1,4 +1,4 @@
-# ✨ Welcome to Animeh ✨
+<h1 align="center">✨ Welcome to Animeh ✨</h1>
 
 ![Cover](https://utfs.io/f/136c9cb5-d84a-4043-a0d0-15cfb4f35ecc-qmtq0.webp)
 
