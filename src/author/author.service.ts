@@ -36,6 +36,17 @@ export const getAuthorById = async (id: number) => {
   });
 };
 
+export const getAuthorPost = async (authorId: number, postId: number) => {
+  return db.author.findUnique({
+    where: {id: authorId},
+    select: {
+      posts: {
+        where: {id: postId},
+      },
+    },
+  });
+};
+
 export const getAuthorByQuery = async (query: any) => {
   return db.author.findMany({
     where: {...query},

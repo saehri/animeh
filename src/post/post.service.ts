@@ -3,7 +3,7 @@ import {db} from '../utils/db.server';
 export type Post = {
   id: number;
   title: string;
-  content?: string;
+  synopsis?: string;
   releaseYear: Date;
   genres: string;
   authorId: number;
@@ -17,10 +17,31 @@ export const listPosts = async () => {
       title: true,
       synopsis: true,
       genres: true,
-      reviews: true,
+      reviews: {
+        select: {
+          id: true,
+          likertScale: true,
+          content: true,
+          author: {
+            select: {
+              id: true,
+              email: true,
+              name: true,
+            },
+          },
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
       coverImage: true,
-      author: true,
-      authorId: true,
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          isAdmin: true,
+        },
+      },
       createdAt: true,
       updatedAt: true,
     },
@@ -69,7 +90,7 @@ export const createPost = async (data: Post) => {
   return db.post.create({
     data: {
       title: data.title,
-      synopsis: data.content,
+      synopsis: data.synopsis,
       author: {
         connect: {
           id: data.authorId,

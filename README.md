@@ -47,23 +47,19 @@ Welcome to the Animeh, a platform that allows users to submit and retrieve revie
 
 Feel free to reach out if you encounter any issues or have questions.
 
-## API Documentation
+## API Design
 
-### API Design
-
-#### 1.1 Authentication and Authorization
+### 🔒 Authentication and Authorization
 
 <p>Some of the URL Endpoint on this API are protected. Here are the list of the protected Endpoint and what it needs to unlock them:</p>
 
 ---
 
-#### 1.2 Data Fetching
-
-#### Author
+### 🔚 Author Endpoint
 
 ---
 
-**A. Get List of Authors**
+#### A. Get List of Authors
 
 - Endpoint: `/api/author`
 - Request methods: **GET**
@@ -135,9 +131,7 @@ Feel free to reach out if you encounter any issues or have questions.
 
 ---
 
-<br>
-
-**B. Get Author by Their Id**
+#### B. Get Author by Their Id
 
 - Endpoint: `/api/author/:authorId`
 - Parameters: `Author id`
@@ -210,9 +204,7 @@ Feel free to reach out if you encounter any issues or have questions.
 
 ---
 
-<br>
-
-**C. Create New Author**
+#### C. Create New Author
 
 - Endpoint: `/api/author/signup`
 - Request methods: **POST**
@@ -249,9 +241,9 @@ Feel free to reach out if you encounter any issues or have questions.
     - Cause: Trying to sign up with used email.
     - Solution: Use new email address.
 
----<br>
+---
 
-**D. Author Signin**
+#### D. Author Signin
 
 - Endpoint: `/api/author/sigin`
 - Request methods: **POST**
@@ -289,7 +281,7 @@ Feel free to reach out if you encounter any issues or have questions.
 
 <br>
 
-**E. Editing Author Data**
+#### E. Editing Author Data
 
 - Endpoint: `/api/author/:authorId`
 - Parameters: `Author Id`
@@ -333,9 +325,7 @@ Feel free to reach out if you encounter any issues or have questions.
 
 ---
 
-<br>
-
-**F. Deleting Author**
+#### F. Deleting Author
 
 - Endpoint: `/api/author/:authorId`
 - Parameters: `Author Id`
@@ -351,3 +341,279 @@ Feel free to reach out if you encounter any issues or have questions.
   - Error: Invalid user id.
     - Cause: There are no record with the specified id. Please provide valid user id.
     - Solution: Provide a valid user id.
+
+---
+
+<br>
+
+### Animes Endpoint
+
+---
+
+#### A. Get List of Animes
+
+- Endpoint: `/api/animes`
+- Request methods: **GET**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Expected response:
+  ```
+  {
+    "success": true,
+    "responseDataLength": 3,
+    "data": [
+        {
+            "id": 3,
+            "title": "Jujutsu Kaisen",
+            "synopsis": "Lorem ipsum dolor sit amet",
+            "genres": "",
+            "reviews": [
+                {
+                    "id": 1,
+                    "likertScale": 4,
+                    "content": "I love the cheeky story. Nice series ♥.",
+                    "author": {
+                        "id": 7,
+                        "email": "saepulbahree36@gmail.com",
+                        "name": "bahree"
+                    },
+                    "createdAt": "2024-02-03T10:59:04.757Z",
+                    "updatedAt": "2024-02-03T12:00:29.003Z"
+                }
+            ],
+            "coverImage": "",
+            "author": {
+                "id": 7,
+                "name": "bahree",
+                "email": "saepulbahree36@gmail.com",
+                "isAdmin": true
+            },
+            "createdAt": "2024-02-03T10:05:02.580Z",
+            "updatedAt": "2024-02-03T10:19:45.408Z"
+        },
+        {
+            "id": 4,
+            "title": "Second post",
+            "synopsis": null,
+            "genres": "",
+            "reviews": [],
+            "coverImage": "",
+            "author": {
+                "id": 7,
+                "name": "bahree",
+                "email": "saepulbahree36@gmail.com",
+                "isAdmin": true
+            },
+            "createdAt": "2024-02-03T10:05:16.669Z",
+            "updatedAt": "2024-02-03T10:05:16.669Z"
+        },
+        {
+            "id": 5,
+            "title": "Doraemon",
+            "synopsis": null,
+            "genres": "",
+            "reviews": [],
+            "coverImage": "",
+            "author": {
+                "id": 7,
+                "name": "bahree",
+                "email": "saepulbahree36@gmail.com",
+                "isAdmin": true
+            },
+            "createdAt": "2024-02-03T15:37:12.172Z",
+            "updatedAt": "2024-02-03T15:37:12.172Z"
+        }
+    ],
+    "serverRespondeAt": "2024-02-04T02:48:34.715Z",
+    "isEmpty": false
+  }
+  ```
+
+---
+
+<br>
+
+#### B. Get Anime by Id
+
+- Endpoint: `/api/animes/:animeId`
+- Parameters: `Anime id`
+- Request methods: **GET**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Expected response:
+  ```
+  {
+    "success": true,
+    "data": {
+        "id": 3,
+        "title": "Jujutsu Kaisen",
+        "synopsis": "Lorem ipsum dolor sit amet",
+        "coverImage": "",
+        "genres": "",
+        "authorId": 7,
+        "createdAt": "2024-02-03T10:05:02.580Z",
+        "updatedAt": "2024-02-03T10:19:45.408Z",
+        "author": {
+            "id": 7,
+            "name": "bahree",
+            "email": "saepulbahree36@gmail.com",
+            "password": "",
+            "hashedPassword": "$2b$08$Bsljhab.PrKfOS.lTADCped4sqLlSClNJOHxufnb5fmQj1rootL.y",
+            "isAdmin": true,
+            "createdAt": "2024-02-03T04:02:35.625Z",
+            "updatedAt": "2024-02-03T06:16:58.800Z"
+        },
+        "reviews": [
+            {
+                "id": 1,
+                "likertScale": 4,
+                "content": "I love the cheeky story. Nice series ♥.",
+                "postId": 3,
+                "authorId": 7,
+                "createdAt": "2024-02-03T10:59:04.757Z",
+                "updatedAt": "2024-02-03T12:00:29.003Z"
+            }
+        ]
+    },
+    "serverRespondeAt": "2024-02-04T02:51:45.220Z"
+  }
+  ```
+- Error handling:
+  - Error: Response data is null
+    - Cause: There are no user with the specified id
+    - Solution: Make sure the user id is valid
+
+---
+
+#### C. Create Anime Entry
+
+- Endpoint: `/api/animes`
+- Request methods: **POST**
+- Request header: `Authorization = Bearer JWT_TOKEN`
+- Authorization:
+  - This endpoint can be accessed only if author `{isAdmin: true}`
+- Request body:
+  ```
+  {
+    "title": "Naruto",
+    "synopsis": "Lorem ipsum dolor sit amet",
+    "authorId": 7
+  }
+  ```
+- Expected response:
+  ```
+  {
+    "success": true,
+    "message": "Post is successfully created!",
+    "data": {
+        "id": 6,
+        "title": "Naruto",
+        "synopsis": Lorem ipsum dolor sit amet,
+        "coverImage": "",
+        "genres": "",
+        "authorId": 7,
+        "createdAt": "2024-02-04T02:56:49.112Z",
+        "updatedAt": "2024-02-04T02:56:49.112Z"
+    }
+  }
+  ```
+- Error handling
+  - Error: Post title, synopsis, or authorId cannot be undefined.
+    - Cause: Incomplete request body.
+    - Solution: Make sure the request body is complete.
+  - Error: Author with the id provided does not exist in our record. Make sure you provided the correct id.
+    - Cause: The authorId does not exist.
+    - Solution: Make sure you provided the correct id.
+  - Error: Unauthorized access. You need to be an admin to do this operation.
+    - Case: The user is not an admin.
+    - Solution: You need to register as an admin.
+
+---
+
+#### D. Edit Anime Data
+
+- Endpoint: `/api/animes/:authorId/:animesId`
+- Parameters: `authodId = AuthorId & animesId = AnimesId`
+- Request methods: **PUT**
+- Request body:
+
+  ```
+  {
+   [authorDataKey]: [new data]
+  }
+
+   Example:
+
+   {
+    "synopsis": "The story revolves around Yuji Itadori, a high school student with exceptional physical abilities. After the death of his grandfather, Yuji finds himself drawn into the world of Jujutsu Sorcery when he comes into contact with a cursed object—a rotting finger imbued with an ancient curse."
+  }
+  ```
+
+- Expected response:
+  ```
+  {
+    "success": true,
+    "data": {
+        "id": 3,
+        "reviews": [
+            {
+                "id": 1,
+                "likertScale": 4,
+                "content": "I love the cheeky story. Nice series ♥.",
+                "postId": 3,
+                "authorId": 7,
+                "createdAt": "2024-02-03T10:59:04.757Z",
+                "updatedAt": "2024-02-03T12:00:29.003Z"
+            }
+        ],
+        "title": "Jujutsu Kaisen",
+        "synopsis": "The story revolves around Yuji Itadori, a high school student with exceptional physical abilities. After the death of his grandfather, Yuji finds himself drawn into the world of Jujutsu Sorcery when he comes into contact with a cursed object—a rotting finger imbued with an ancient curse.",
+        "coverImage": "",
+        "genres": "",
+        "authorId": 7,
+        "author": {
+            "id": 7,
+            "name": "bahree",
+            "email": "saepulbahree36@gmail.com",
+            "password": "",
+            "hashedPassword": "$2b$08$Bsljhab.PrKfOS.lTADCped4sqLlSClNJOHxufnb5fmQj1rootL.y",
+            "isAdmin": true,
+            "createdAt": "2024-02-03T04:02:35.625Z",
+            "updatedAt": "2024-02-03T06:16:58.800Z"
+        },
+        "createdAt": "2024-02-03T10:05:02.580Z",
+        "updatedAt": "2024-02-04T03:39:28.762Z"
+    },
+    "message": "Post successfully edited",
+    "serverRespondeAt": "2024-02-04T03:39:28.775Z"
+  }
+  ```
+- Error handling
+  - Error: Request body cannot be empty.
+    - Cause: Incomplete request body.
+    - Solution: Make sure the request body is complete.
+  - Error: Unauthorized, admin only.
+    - Cause: Invalid authorId or author is not registered as an admin.
+    - Solution: Make sure the authorId is valid and the author is registered as an admin.
+  - Error: There are no record of post with the specified id.
+    - Cause: animesId is not valid.
+    - Solution: Make sure the animeId is valid.
+
+---
+
+#### E. Delete Anime Data
+
+- Endpoint: `/api/animes/:animeId`
+- Parameters: `Anime Id`
+- Request methods: **DELETE**
+- Expected response:
+  ```
+  {
+    "message": "Post is successfully deleted.",
+    "success": true
+   }
+  ```
+- Error handling
+  - Error: Invalid user id.
+    - Cause: There are no record with the specified id. Please provide valid user id.
+    - Solution: Provide a valid user id.
+
+---

@@ -3,6 +3,7 @@ import type {Request, Response} from 'express';
 import authMiddleware from '../middleware/authMiddleware';
 
 import * as postsService from './post.service';
+import {getAuthorById, getAuthorPost} from '../author/author.service';
 
 export const postsRouter = express.Router();
 
@@ -99,12 +100,31 @@ postsRouter.post('/', authMiddleware, async (req: Request, res: Response) => {
   try {
     const payload = req.body;
 
-    const responseData = await postsService.createPost(payload);
-    return res.status(201).json({
-      success: true,
-      message: 'Post is successfully created!',
-      data: responseData,
-    });
+    if (Object.keys(payload).length < 2) {
+      throw new Error('Post title, synopsis, or authorId cannot be empty.');
+    } else {
+      const isAuthorExist = await getAuthorById(Number(payload.authorId));
+
+      if (isAuthorExist) {
+        if (isAuthorExist.isAdmin) {
+          const responseData = await postsService.createPost(payload);
+
+          return res.status(201).json({
+            success: true,
+            message: 'Post is successfully created!',
+            data: responseData,
+          });
+        } else {
+          throw new Error(
+            'Unauthorized access. You need to be an admin to do this operation.'
+          );
+        }
+      } else {
+        throw new Error(
+          'Author with the id provided does not exist in our record. Make sure you provided the correct id.'
+        );
+      }
+    }
   } catch (error: any) {
     return res.status(500).json({
       message: error.message,
@@ -113,29 +133,53 @@ postsRouter.post('/', authMiddleware, async (req: Request, res: Response) => {
   }
 });
 
-postsRouter.put('/:id', authMiddleware, async (req: Request, res: Response) => {
-  try {
-    const authorId = req.params.id;
-    const payload = req.body;
+postsRouter.put(
+  '/:authorId/:animesId',
+  authMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const authorId = req.params.authorId;
+      const postId = req.params.animesId;
+      const payload = req.body;
 
-    const responseData = await postsService.updatePost(
-      Number(authorId),
-      payload
-    );
+      const isAuthorExist = await getAuthorById(Number(authorId));
 
-    return res.status(200).json({
-      success: true,
-      data: responseData,
-      message: 'Post successfully edited',
-      serverRespondeAt: new Date().toISOString(),
-    });
-  } catch (error: any) {
-    return res.status(500).json({
-      message: error.message,
-      success: false,
-    });
+      if (!isAuthorExist || !isAuthorExist.isAdmin) {
+        throw new Error('Unauthorized, admin only.');
+      } else {
+        const isPostExist = await getAuthorPost(
+          Number(authorId),
+          Number(postId)
+        );
+
+        if (!isPostExist?.posts.length) {
+          throw new Error('There are no record of post with the specified id.');
+        } else {
+          if (!Object.keys(payload).length) {
+            throw new Error('Request body is cannot be empty.');
+          }
+
+          const responseData = await postsService.updatePost(
+            Number(postId),
+            payload
+          );
+
+          return res.status(200).json({
+            success: true,
+            data: responseData,
+            message: 'Post successfully edited',
+            serverRespondeAt: new Date().toISOString(),
+          });
+        }
+      }
+    } catch (error: any) {
+      return res.status(500).json({
+        message: error.message,
+        success: false,
+      });
+    }
   }
-});
+);
 
 postsRouter.delete(
   '/:id',
