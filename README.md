@@ -279,8 +279,6 @@ Feel free to reach out if you encounter any issues or have questions.
 
 ---
 
-<br>
-
 #### E. Editing Author Data
 
 - Endpoint: `/api/author/:authorId`
@@ -429,8 +427,6 @@ Feel free to reach out if you encounter any issues or have questions.
   ```
 
 ---
-
-<br>
 
 #### B. Get Anime by Id
 
