@@ -49,18 +49,19 @@ Feel free to reach out if you encounter any issues or have questions.
 
 ## API Documentation
 
-#### 1. API Design
+### API Design
 
 #### 1.1 Authentication and Authorization
 
 <p>Some of the URL Endpoint on this API are protected. Here are the list of the protected Endpoint and what it needs to unlock them:</p>
----<br>
+
+---
 
 #### 1.2 Data Fetching
 
-##### 1.1 Author
+#### Author
 
----<br>
+---
 
 **A. Get List of Authors**
 
@@ -131,7 +132,10 @@ Feel free to reach out if you encounter any issues or have questions.
    "isEmpty": false
    }
   ```
-  ---<br>
+
+---
+
+<br>
 
 **B. Get Author by Their Id**
 
@@ -204,7 +208,9 @@ Feel free to reach out if you encounter any issues or have questions.
     - Cause: There are no user with the specified id
     - Solution: Make sure the user id is valid
 
----<br>
+---
+
+<br>
 
 **C. Create New Author**
 
@@ -279,7 +285,9 @@ Feel free to reach out if you encounter any issues or have questions.
     - Cause: Incomplete request body.
     - Solution: Make sure the request body is complete.
 
----<br>
+---
+
+<br>
 
 **E. Editing Author Data**
 
@@ -323,7 +331,9 @@ Feel free to reach out if you encounter any issues or have questions.
     - Cause: Incomplete request body.
     - Solution: Make sure the request body is complete.
 
----<br>
+---
+
+<br>
 
 **F. Deleting Author**
 
